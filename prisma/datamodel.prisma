@@ -1,0 +1,41 @@
+type Team {
+  id: ID! @id
+  name: String!
+  location: String!
+  abbrv_location: String!
+  logo: String!
+  division: String
+  yearlyPostSpending: [YearlyPositionalSpending!]!
+    @relation(name: "TeamToYearlyPositionalSpending", onDelete: SET_NULL)
+  yearlyTeamMetrics: [YearlyTeamMetrics!]!
+    @relation(name: "TeamToYearlyTeamMetrics", onDelete: SET_NULL)
+}
+
+type YearlyPositionalSpending {
+  id: ID! @id
+  team: Team!
+    @relation(name: "YearlyPositionalSpendingToTeam", onDelete: SET_NULL)
+  qb: Int!
+  rb: Int!
+  wr: Int!
+  te: Int!
+  ol: Int!
+  Offense: Int!
+  dl: Int!
+  lb: Int!
+  s: Int!
+  cb: Int!
+  Defense: Int!
+  year: Int!
+}
+
+type YearlyTeamMetrics {
+  id: ID! @id
+  team: Team! @relation(name: "YearlyTeamMetrics", onDelete: SET_NULL)
+  off_dvoa: Int!
+  def_dvoa: Int!
+  wins: Int!
+  loses: Int!
+  ties: Int!
+  year: Int!
+}

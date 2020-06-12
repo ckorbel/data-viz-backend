@@ -1,0 +1,112 @@
+# import TeamOrderByInput from './generated/prisma.graphql'
+
+type Query {
+  teams(query: String, orderBy: TeamOrderByInput): [Team!]!
+  team(id: ID!): Team!
+  yearlyPositionalSpendings(
+    query: String
+    year: Int!
+    first: Int
+    skip: Int
+    after: String
+    orderBy: UpdateYearlyPositionalSpendingInput
+  ): [YearlyPositionalSpending!]!
+}
+
+type Mutation {
+  createTeam(data: CreateTeamInput!): Team!
+  updateTeam(id: ID!, data: UpdateTeamInput!): Team!
+  deleteYearlyPostSpending(id: ID!): YearlyPositionalSpending!
+  createYearlyPositionalSpending(
+    data: CreateYearlyPositionalSpendingInput
+  ): YearlyPositionalSpending!
+  updateYearlyPositionalSpending(
+    data: UpdateYearlyPositionalSpendingInput
+    id: ID!
+  ): YearlyPositionalSpending!
+}
+
+input CreateTeamInput {
+  name: String!
+  location: String!
+  abbrv_location: String!
+  logo: String!
+  division: String
+}
+
+input UpdateTeamInput {
+  name: String
+  location: String
+  abbrv_location: String
+  logo: String
+  division: String
+}
+
+input CreateYearlyPositionalSpendingInput {
+  qb: Int!
+  rb: Int!
+  wr: Int!
+  te: Int!
+  ol: Int!
+  Offense: Int!
+  dl: Int!
+  lb: Int!
+  s: Int!
+  cb: Int!
+  Defense: Int!
+  year: Int!
+}
+
+input UpdateYearlyPositionalSpendingInput {
+  qb: Int
+  rb: Int
+  wr: Int
+  te: Int
+  ol: Int
+  Offense: Int
+  dl: Int
+  lb: Int
+  s: Int
+  cb: Int
+  Defense: Int
+  year: Int
+}
+
+type Team {
+  id: ID!
+  name: String!
+  location: String!
+  abbrv_location: String!
+  logo: String!
+  division: String
+  yearlyPostSpending: [YearlyPositionalSpending!]!
+  yearlyTeamMetrics: [YearlyTeamMetrics!]!
+}
+
+type YearlyPositionalSpending {
+  id: ID!
+  qb: Int!
+  rb: Int!
+  wr: Int!
+  te: Int!
+  ol: Int!
+  Offense: Int!
+  dl: Int!
+  lb: Int!
+  s: Int!
+  cb: Int!
+  Defense: Int!
+  year: Int!
+  team: Team!
+}
+
+type YearlyTeamMetrics {
+  id: ID!
+  off_dvoa: Int!
+  def_dvoa: Int!
+  wins: Int!
+  loses: Int!
+  ties: Int!
+  year: Int!
+  team: Team!
+}

@@ -1,0 +1,1925 @@
+# source: http://localhost:4466
+# timestamp: Tue Jun 09 2020 07:43:54 GMT-0700 (Pacific Daylight Time)
+
+type AggregateTeam {
+  count: Int!
+}
+
+type AggregateYearlyPositionalSpending {
+  count: Int!
+}
+
+type AggregateYearlyTeamMetrics {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+"""Raw JSON value"""
+scalar Json
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createYearlyPositionalSpending(data: YearlyPositionalSpendingCreateInput!): YearlyPositionalSpending!
+  createTeam(data: TeamCreateInput!): Team!
+  createYearlyTeamMetrics(data: YearlyTeamMetricsCreateInput!): YearlyTeamMetrics!
+  updateYearlyPositionalSpending(data: YearlyPositionalSpendingUpdateInput!, where: YearlyPositionalSpendingWhereUniqueInput!): YearlyPositionalSpending
+  updateTeam(data: TeamUpdateInput!, where: TeamWhereUniqueInput!): Team
+  updateYearlyTeamMetrics(data: YearlyTeamMetricsUpdateInput!, where: YearlyTeamMetricsWhereUniqueInput!): YearlyTeamMetrics
+  deleteYearlyPositionalSpending(where: YearlyPositionalSpendingWhereUniqueInput!): YearlyPositionalSpending
+  deleteTeam(where: TeamWhereUniqueInput!): Team
+  deleteYearlyTeamMetrics(where: YearlyTeamMetricsWhereUniqueInput!): YearlyTeamMetrics
+  upsertYearlyPositionalSpending(where: YearlyPositionalSpendingWhereUniqueInput!, create: YearlyPositionalSpendingCreateInput!, update: YearlyPositionalSpendingUpdateInput!): YearlyPositionalSpending!
+  upsertTeam(where: TeamWhereUniqueInput!, create: TeamCreateInput!, update: TeamUpdateInput!): Team!
+  upsertYearlyTeamMetrics(where: YearlyTeamMetricsWhereUniqueInput!, create: YearlyTeamMetricsCreateInput!, update: YearlyTeamMetricsUpdateInput!): YearlyTeamMetrics!
+  updateManyYearlyPositionalSpendings(data: YearlyPositionalSpendingUpdateManyMutationInput!, where: YearlyPositionalSpendingWhereInput): BatchPayload!
+  updateManyTeams(data: TeamUpdateManyMutationInput!, where: TeamWhereInput): BatchPayload!
+  updateManyYearlyTeamMetricses(data: YearlyTeamMetricsUpdateManyMutationInput!, where: YearlyTeamMetricsWhereInput): BatchPayload!
+  deleteManyYearlyPositionalSpendings(where: YearlyPositionalSpendingWhereInput): BatchPayload!
+  deleteManyTeams(where: TeamWhereInput): BatchPayload!
+  deleteManyYearlyTeamMetricses(where: YearlyTeamMetricsWhereInput): BatchPayload!
+  executeRaw(database: PrismaDatabase, query: String!): Json!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+enum PrismaDatabase {
+  default
+}
+
+type Query {
+  yearlyPositionalSpendings(where: YearlyPositionalSpendingWhereInput, orderBy: YearlyPositionalSpendingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [YearlyPositionalSpending]!
+  teams(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Team]!
+  yearlyTeamMetricses(where: YearlyTeamMetricsWhereInput, orderBy: YearlyTeamMetricsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [YearlyTeamMetrics]!
+  yearlyPositionalSpending(where: YearlyPositionalSpendingWhereUniqueInput!): YearlyPositionalSpending
+  team(where: TeamWhereUniqueInput!): Team
+  yearlyTeamMetrics(where: YearlyTeamMetricsWhereUniqueInput!): YearlyTeamMetrics
+  yearlyPositionalSpendingsConnection(where: YearlyPositionalSpendingWhereInput, orderBy: YearlyPositionalSpendingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): YearlyPositionalSpendingConnection!
+  teamsConnection(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TeamConnection!
+  yearlyTeamMetricsesConnection(where: YearlyTeamMetricsWhereInput, orderBy: YearlyTeamMetricsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): YearlyTeamMetricsConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  yearlyPositionalSpending(where: YearlyPositionalSpendingSubscriptionWhereInput): YearlyPositionalSpendingSubscriptionPayload
+  team(where: TeamSubscriptionWhereInput): TeamSubscriptionPayload
+  yearlyTeamMetrics(where: YearlyTeamMetricsSubscriptionWhereInput): YearlyTeamMetricsSubscriptionPayload
+}
+
+type Team implements Node {
+  id: ID!
+  name: String!
+  location: String!
+  abbrv_location: String!
+  logo: String!
+  division: String
+  yearlyPostSpending(where: YearlyPositionalSpendingWhereInput, orderBy: YearlyPositionalSpendingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [YearlyPositionalSpending!]
+  yearlyTeamMetrics(where: YearlyTeamMetricsWhereInput, orderBy: YearlyTeamMetricsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [YearlyTeamMetrics!]
+}
+
+"""A connection to a list of items."""
+type TeamConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [TeamEdge]!
+  aggregate: AggregateTeam!
+}
+
+input TeamCreateInput {
+  id: ID
+  name: String!
+  location: String!
+  abbrv_location: String!
+  logo: String!
+  division: String
+  yearlyPostSpending: YearlyPositionalSpendingCreateManyInput
+  yearlyTeamMetrics: YearlyTeamMetricsCreateManyInput
+}
+
+input TeamCreateOneInput {
+  create: TeamCreateInput
+  connect: TeamWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type TeamEdge {
+  """The item at the end of the edge."""
+  node: Team!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum TeamOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  location_ASC
+  location_DESC
+  abbrv_location_ASC
+  abbrv_location_DESC
+  logo_ASC
+  logo_DESC
+  division_ASC
+  division_DESC
+}
+
+type TeamPreviousValues {
+  id: ID!
+  name: String!
+  location: String!
+  abbrv_location: String!
+  logo: String!
+  division: String
+}
+
+type TeamSubscriptionPayload {
+  mutation: MutationType!
+  node: Team
+  updatedFields: [String!]
+  previousValues: TeamPreviousValues
+}
+
+input TeamSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TeamSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TeamSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TeamSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: TeamWhereInput
+}
+
+input TeamUpdateDataInput {
+  name: String
+  location: String
+  abbrv_location: String
+  logo: String
+  division: String
+  yearlyPostSpending: YearlyPositionalSpendingUpdateManyInput
+  yearlyTeamMetrics: YearlyTeamMetricsUpdateManyInput
+}
+
+input TeamUpdateInput {
+  name: String
+  location: String
+  abbrv_location: String
+  logo: String
+  division: String
+  yearlyPostSpending: YearlyPositionalSpendingUpdateManyInput
+  yearlyTeamMetrics: YearlyTeamMetricsUpdateManyInput
+}
+
+input TeamUpdateManyMutationInput {
+  name: String
+  location: String
+  abbrv_location: String
+  logo: String
+  division: String
+}
+
+input TeamUpdateOneRequiredInput {
+  create: TeamCreateInput
+  connect: TeamWhereUniqueInput
+  update: TeamUpdateDataInput
+  upsert: TeamUpsertNestedInput
+}
+
+input TeamUpsertNestedInput {
+  update: TeamUpdateDataInput!
+  create: TeamCreateInput!
+}
+
+input TeamWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TeamWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TeamWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TeamWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  location: String
+
+  """All values that are not equal to given value."""
+  location_not: String
+
+  """All values that are contained in given list."""
+  location_in: [String!]
+
+  """All values that are not contained in given list."""
+  location_not_in: [String!]
+
+  """All values less than the given value."""
+  location_lt: String
+
+  """All values less than or equal the given value."""
+  location_lte: String
+
+  """All values greater than the given value."""
+  location_gt: String
+
+  """All values greater than or equal the given value."""
+  location_gte: String
+
+  """All values containing the given string."""
+  location_contains: String
+
+  """All values not containing the given string."""
+  location_not_contains: String
+
+  """All values starting with the given string."""
+  location_starts_with: String
+
+  """All values not starting with the given string."""
+  location_not_starts_with: String
+
+  """All values ending with the given string."""
+  location_ends_with: String
+
+  """All values not ending with the given string."""
+  location_not_ends_with: String
+  abbrv_location: String
+
+  """All values that are not equal to given value."""
+  abbrv_location_not: String
+
+  """All values that are contained in given list."""
+  abbrv_location_in: [String!]
+
+  """All values that are not contained in given list."""
+  abbrv_location_not_in: [String!]
+
+  """All values less than the given value."""
+  abbrv_location_lt: String
+
+  """All values less than or equal the given value."""
+  abbrv_location_lte: String
+
+  """All values greater than the given value."""
+  abbrv_location_gt: String
+
+  """All values greater than or equal the given value."""
+  abbrv_location_gte: String
+
+  """All values containing the given string."""
+  abbrv_location_contains: String
+
+  """All values not containing the given string."""
+  abbrv_location_not_contains: String
+
+  """All values starting with the given string."""
+  abbrv_location_starts_with: String
+
+  """All values not starting with the given string."""
+  abbrv_location_not_starts_with: String
+
+  """All values ending with the given string."""
+  abbrv_location_ends_with: String
+
+  """All values not ending with the given string."""
+  abbrv_location_not_ends_with: String
+  logo: String
+
+  """All values that are not equal to given value."""
+  logo_not: String
+
+  """All values that are contained in given list."""
+  logo_in: [String!]
+
+  """All values that are not contained in given list."""
+  logo_not_in: [String!]
+
+  """All values less than the given value."""
+  logo_lt: String
+
+  """All values less than or equal the given value."""
+  logo_lte: String
+
+  """All values greater than the given value."""
+  logo_gt: String
+
+  """All values greater than or equal the given value."""
+  logo_gte: String
+
+  """All values containing the given string."""
+  logo_contains: String
+
+  """All values not containing the given string."""
+  logo_not_contains: String
+
+  """All values starting with the given string."""
+  logo_starts_with: String
+
+  """All values not starting with the given string."""
+  logo_not_starts_with: String
+
+  """All values ending with the given string."""
+  logo_ends_with: String
+
+  """All values not ending with the given string."""
+  logo_not_ends_with: String
+  division: String
+
+  """All values that are not equal to given value."""
+  division_not: String
+
+  """All values that are contained in given list."""
+  division_in: [String!]
+
+  """All values that are not contained in given list."""
+  division_not_in: [String!]
+
+  """All values less than the given value."""
+  division_lt: String
+
+  """All values less than or equal the given value."""
+  division_lte: String
+
+  """All values greater than the given value."""
+  division_gt: String
+
+  """All values greater than or equal the given value."""
+  division_gte: String
+
+  """All values containing the given string."""
+  division_contains: String
+
+  """All values not containing the given string."""
+  division_not_contains: String
+
+  """All values starting with the given string."""
+  division_starts_with: String
+
+  """All values not starting with the given string."""
+  division_not_starts_with: String
+
+  """All values ending with the given string."""
+  division_ends_with: String
+
+  """All values not ending with the given string."""
+  division_not_ends_with: String
+  yearlyPostSpending_every: YearlyPositionalSpendingWhereInput
+  yearlyPostSpending_some: YearlyPositionalSpendingWhereInput
+  yearlyPostSpending_none: YearlyPositionalSpendingWhereInput
+  yearlyTeamMetrics_every: YearlyTeamMetricsWhereInput
+  yearlyTeamMetrics_some: YearlyTeamMetricsWhereInput
+  yearlyTeamMetrics_none: YearlyTeamMetricsWhereInput
+}
+
+input TeamWhereUniqueInput {
+  id: ID
+}
+
+type YearlyPositionalSpending implements Node {
+  id: ID!
+  team: Team!
+  qb: Int!
+  rb: Int!
+  wr: Int!
+  te: Int!
+  ol: Int!
+  Offense: Int!
+  dl: Int!
+  lb: Int!
+  s: Int!
+  cb: Int!
+  Defense: Int!
+  year: Int!
+}
+
+"""A connection to a list of items."""
+type YearlyPositionalSpendingConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [YearlyPositionalSpendingEdge]!
+  aggregate: AggregateYearlyPositionalSpending!
+}
+
+input YearlyPositionalSpendingCreateInput {
+  id: ID
+  qb: Int!
+  rb: Int!
+  wr: Int!
+  te: Int!
+  ol: Int!
+  Offense: Int!
+  dl: Int!
+  lb: Int!
+  s: Int!
+  cb: Int!
+  Defense: Int!
+  year: Int!
+  team: TeamCreateOneInput!
+}
+
+input YearlyPositionalSpendingCreateManyInput {
+  create: [YearlyPositionalSpendingCreateInput!]
+  connect: [YearlyPositionalSpendingWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type YearlyPositionalSpendingEdge {
+  """The item at the end of the edge."""
+  node: YearlyPositionalSpending!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum YearlyPositionalSpendingOrderByInput {
+  id_ASC
+  id_DESC
+  qb_ASC
+  qb_DESC
+  rb_ASC
+  rb_DESC
+  wr_ASC
+  wr_DESC
+  te_ASC
+  te_DESC
+  ol_ASC
+  ol_DESC
+  Offense_ASC
+  Offense_DESC
+  dl_ASC
+  dl_DESC
+  lb_ASC
+  lb_DESC
+  s_ASC
+  s_DESC
+  cb_ASC
+  cb_DESC
+  Defense_ASC
+  Defense_DESC
+  year_ASC
+  year_DESC
+}
+
+type YearlyPositionalSpendingPreviousValues {
+  id: ID!
+  qb: Int!
+  rb: Int!
+  wr: Int!
+  te: Int!
+  ol: Int!
+  Offense: Int!
+  dl: Int!
+  lb: Int!
+  s: Int!
+  cb: Int!
+  Defense: Int!
+  year: Int!
+}
+
+input YearlyPositionalSpendingScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [YearlyPositionalSpendingScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [YearlyPositionalSpendingScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [YearlyPositionalSpendingScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  qb: Int
+
+  """All values that are not equal to given value."""
+  qb_not: Int
+
+  """All values that are contained in given list."""
+  qb_in: [Int!]
+
+  """All values that are not contained in given list."""
+  qb_not_in: [Int!]
+
+  """All values less than the given value."""
+  qb_lt: Int
+
+  """All values less than or equal the given value."""
+  qb_lte: Int
+
+  """All values greater than the given value."""
+  qb_gt: Int
+
+  """All values greater than or equal the given value."""
+  qb_gte: Int
+  rb: Int
+
+  """All values that are not equal to given value."""
+  rb_not: Int
+
+  """All values that are contained in given list."""
+  rb_in: [Int!]
+
+  """All values that are not contained in given list."""
+  rb_not_in: [Int!]
+
+  """All values less than the given value."""
+  rb_lt: Int
+
+  """All values less than or equal the given value."""
+  rb_lte: Int
+
+  """All values greater than the given value."""
+  rb_gt: Int
+
+  """All values greater than or equal the given value."""
+  rb_gte: Int
+  wr: Int
+
+  """All values that are not equal to given value."""
+  wr_not: Int
+
+  """All values that are contained in given list."""
+  wr_in: [Int!]
+
+  """All values that are not contained in given list."""
+  wr_not_in: [Int!]
+
+  """All values less than the given value."""
+  wr_lt: Int
+
+  """All values less than or equal the given value."""
+  wr_lte: Int
+
+  """All values greater than the given value."""
+  wr_gt: Int
+
+  """All values greater than or equal the given value."""
+  wr_gte: Int
+  te: Int
+
+  """All values that are not equal to given value."""
+  te_not: Int
+
+  """All values that are contained in given list."""
+  te_in: [Int!]
+
+  """All values that are not contained in given list."""
+  te_not_in: [Int!]
+
+  """All values less than the given value."""
+  te_lt: Int
+
+  """All values less than or equal the given value."""
+  te_lte: Int
+
+  """All values greater than the given value."""
+  te_gt: Int
+
+  """All values greater than or equal the given value."""
+  te_gte: Int
+  ol: Int
+
+  """All values that are not equal to given value."""
+  ol_not: Int
+
+  """All values that are contained in given list."""
+  ol_in: [Int!]
+
+  """All values that are not contained in given list."""
+  ol_not_in: [Int!]
+
+  """All values less than the given value."""
+  ol_lt: Int
+
+  """All values less than or equal the given value."""
+  ol_lte: Int
+
+  """All values greater than the given value."""
+  ol_gt: Int
+
+  """All values greater than or equal the given value."""
+  ol_gte: Int
+  Offense: Int
+
+  """All values that are not equal to given value."""
+  Offense_not: Int
+
+  """All values that are contained in given list."""
+  Offense_in: [Int!]
+
+  """All values that are not contained in given list."""
+  Offense_not_in: [Int!]
+
+  """All values less than the given value."""
+  Offense_lt: Int
+
+  """All values less than or equal the given value."""
+  Offense_lte: Int
+
+  """All values greater than the given value."""
+  Offense_gt: Int
+
+  """All values greater than or equal the given value."""
+  Offense_gte: Int
+  dl: Int
+
+  """All values that are not equal to given value."""
+  dl_not: Int
+
+  """All values that are contained in given list."""
+  dl_in: [Int!]
+
+  """All values that are not contained in given list."""
+  dl_not_in: [Int!]
+
+  """All values less than the given value."""
+  dl_lt: Int
+
+  """All values less than or equal the given value."""
+  dl_lte: Int
+
+  """All values greater than the given value."""
+  dl_gt: Int
+
+  """All values greater than or equal the given value."""
+  dl_gte: Int
+  lb: Int
+
+  """All values that are not equal to given value."""
+  lb_not: Int
+
+  """All values that are contained in given list."""
+  lb_in: [Int!]
+
+  """All values that are not contained in given list."""
+  lb_not_in: [Int!]
+
+  """All values less than the given value."""
+  lb_lt: Int
+
+  """All values less than or equal the given value."""
+  lb_lte: Int
+
+  """All values greater than the given value."""
+  lb_gt: Int
+
+  """All values greater than or equal the given value."""
+  lb_gte: Int
+  s: Int
+
+  """All values that are not equal to given value."""
+  s_not: Int
+
+  """All values that are contained in given list."""
+  s_in: [Int!]
+
+  """All values that are not contained in given list."""
+  s_not_in: [Int!]
+
+  """All values less than the given value."""
+  s_lt: Int
+
+  """All values less than or equal the given value."""
+  s_lte: Int
+
+  """All values greater than the given value."""
+  s_gt: Int
+
+  """All values greater than or equal the given value."""
+  s_gte: Int
+  cb: Int
+
+  """All values that are not equal to given value."""
+  cb_not: Int
+
+  """All values that are contained in given list."""
+  cb_in: [Int!]
+
+  """All values that are not contained in given list."""
+  cb_not_in: [Int!]
+
+  """All values less than the given value."""
+  cb_lt: Int
+
+  """All values less than or equal the given value."""
+  cb_lte: Int
+
+  """All values greater than the given value."""
+  cb_gt: Int
+
+  """All values greater than or equal the given value."""
+  cb_gte: Int
+  Defense: Int
+
+  """All values that are not equal to given value."""
+  Defense_not: Int
+
+  """All values that are contained in given list."""
+  Defense_in: [Int!]
+
+  """All values that are not contained in given list."""
+  Defense_not_in: [Int!]
+
+  """All values less than the given value."""
+  Defense_lt: Int
+
+  """All values less than or equal the given value."""
+  Defense_lte: Int
+
+  """All values greater than the given value."""
+  Defense_gt: Int
+
+  """All values greater than or equal the given value."""
+  Defense_gte: Int
+  year: Int
+
+  """All values that are not equal to given value."""
+  year_not: Int
+
+  """All values that are contained in given list."""
+  year_in: [Int!]
+
+  """All values that are not contained in given list."""
+  year_not_in: [Int!]
+
+  """All values less than the given value."""
+  year_lt: Int
+
+  """All values less than or equal the given value."""
+  year_lte: Int
+
+  """All values greater than the given value."""
+  year_gt: Int
+
+  """All values greater than or equal the given value."""
+  year_gte: Int
+}
+
+type YearlyPositionalSpendingSubscriptionPayload {
+  mutation: MutationType!
+  node: YearlyPositionalSpending
+  updatedFields: [String!]
+  previousValues: YearlyPositionalSpendingPreviousValues
+}
+
+input YearlyPositionalSpendingSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [YearlyPositionalSpendingSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [YearlyPositionalSpendingSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [YearlyPositionalSpendingSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: YearlyPositionalSpendingWhereInput
+}
+
+input YearlyPositionalSpendingUpdateDataInput {
+  qb: Int
+  rb: Int
+  wr: Int
+  te: Int
+  ol: Int
+  Offense: Int
+  dl: Int
+  lb: Int
+  s: Int
+  cb: Int
+  Defense: Int
+  year: Int
+  team: TeamUpdateOneRequiredInput
+}
+
+input YearlyPositionalSpendingUpdateInput {
+  qb: Int
+  rb: Int
+  wr: Int
+  te: Int
+  ol: Int
+  Offense: Int
+  dl: Int
+  lb: Int
+  s: Int
+  cb: Int
+  Defense: Int
+  year: Int
+  team: TeamUpdateOneRequiredInput
+}
+
+input YearlyPositionalSpendingUpdateManyDataInput {
+  qb: Int
+  rb: Int
+  wr: Int
+  te: Int
+  ol: Int
+  Offense: Int
+  dl: Int
+  lb: Int
+  s: Int
+  cb: Int
+  Defense: Int
+  year: Int
+}
+
+input YearlyPositionalSpendingUpdateManyInput {
+  create: [YearlyPositionalSpendingCreateInput!]
+  connect: [YearlyPositionalSpendingWhereUniqueInput!]
+  set: [YearlyPositionalSpendingWhereUniqueInput!]
+  disconnect: [YearlyPositionalSpendingWhereUniqueInput!]
+  delete: [YearlyPositionalSpendingWhereUniqueInput!]
+  update: [YearlyPositionalSpendingUpdateWithWhereUniqueNestedInput!]
+  updateMany: [YearlyPositionalSpendingUpdateManyWithWhereNestedInput!]
+  deleteMany: [YearlyPositionalSpendingScalarWhereInput!]
+  upsert: [YearlyPositionalSpendingUpsertWithWhereUniqueNestedInput!]
+}
+
+input YearlyPositionalSpendingUpdateManyMutationInput {
+  qb: Int
+  rb: Int
+  wr: Int
+  te: Int
+  ol: Int
+  Offense: Int
+  dl: Int
+  lb: Int
+  s: Int
+  cb: Int
+  Defense: Int
+  year: Int
+}
+
+input YearlyPositionalSpendingUpdateManyWithWhereNestedInput {
+  where: YearlyPositionalSpendingScalarWhereInput!
+  data: YearlyPositionalSpendingUpdateManyDataInput!
+}
+
+input YearlyPositionalSpendingUpdateWithWhereUniqueNestedInput {
+  where: YearlyPositionalSpendingWhereUniqueInput!
+  data: YearlyPositionalSpendingUpdateDataInput!
+}
+
+input YearlyPositionalSpendingUpsertWithWhereUniqueNestedInput {
+  where: YearlyPositionalSpendingWhereUniqueInput!
+  update: YearlyPositionalSpendingUpdateDataInput!
+  create: YearlyPositionalSpendingCreateInput!
+}
+
+input YearlyPositionalSpendingWhereInput {
+  """Logical AND on all given filters."""
+  AND: [YearlyPositionalSpendingWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [YearlyPositionalSpendingWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [YearlyPositionalSpendingWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  qb: Int
+
+  """All values that are not equal to given value."""
+  qb_not: Int
+
+  """All values that are contained in given list."""
+  qb_in: [Int!]
+
+  """All values that are not contained in given list."""
+  qb_not_in: [Int!]
+
+  """All values less than the given value."""
+  qb_lt: Int
+
+  """All values less than or equal the given value."""
+  qb_lte: Int
+
+  """All values greater than the given value."""
+  qb_gt: Int
+
+  """All values greater than or equal the given value."""
+  qb_gte: Int
+  rb: Int
+
+  """All values that are not equal to given value."""
+  rb_not: Int
+
+  """All values that are contained in given list."""
+  rb_in: [Int!]
+
+  """All values that are not contained in given list."""
+  rb_not_in: [Int!]
+
+  """All values less than the given value."""
+  rb_lt: Int
+
+  """All values less than or equal the given value."""
+  rb_lte: Int
+
+  """All values greater than the given value."""
+  rb_gt: Int
+
+  """All values greater than or equal the given value."""
+  rb_gte: Int
+  wr: Int
+
+  """All values that are not equal to given value."""
+  wr_not: Int
+
+  """All values that are contained in given list."""
+  wr_in: [Int!]
+
+  """All values that are not contained in given list."""
+  wr_not_in: [Int!]
+
+  """All values less than the given value."""
+  wr_lt: Int
+
+  """All values less than or equal the given value."""
+  wr_lte: Int
+
+  """All values greater than the given value."""
+  wr_gt: Int
+
+  """All values greater than or equal the given value."""
+  wr_gte: Int
+  te: Int
+
+  """All values that are not equal to given value."""
+  te_not: Int
+
+  """All values that are contained in given list."""
+  te_in: [Int!]
+
+  """All values that are not contained in given list."""
+  te_not_in: [Int!]
+
+  """All values less than the given value."""
+  te_lt: Int
+
+  """All values less than or equal the given value."""
+  te_lte: Int
+
+  """All values greater than the given value."""
+  te_gt: Int
+
+  """All values greater than or equal the given value."""
+  te_gte: Int
+  ol: Int
+
+  """All values that are not equal to given value."""
+  ol_not: Int
+
+  """All values that are contained in given list."""
+  ol_in: [Int!]
+
+  """All values that are not contained in given list."""
+  ol_not_in: [Int!]
+
+  """All values less than the given value."""
+  ol_lt: Int
+
+  """All values less than or equal the given value."""
+  ol_lte: Int
+
+  """All values greater than the given value."""
+  ol_gt: Int
+
+  """All values greater than or equal the given value."""
+  ol_gte: Int
+  Offense: Int
+
+  """All values that are not equal to given value."""
+  Offense_not: Int
+
+  """All values that are contained in given list."""
+  Offense_in: [Int!]
+
+  """All values that are not contained in given list."""
+  Offense_not_in: [Int!]
+
+  """All values less than the given value."""
+  Offense_lt: Int
+
+  """All values less than or equal the given value."""
+  Offense_lte: Int
+
+  """All values greater than the given value."""
+  Offense_gt: Int
+
+  """All values greater than or equal the given value."""
+  Offense_gte: Int
+  dl: Int
+
+  """All values that are not equal to given value."""
+  dl_not: Int
+
+  """All values that are contained in given list."""
+  dl_in: [Int!]
+
+  """All values that are not contained in given list."""
+  dl_not_in: [Int!]
+
+  """All values less than the given value."""
+  dl_lt: Int
+
+  """All values less than or equal the given value."""
+  dl_lte: Int
+
+  """All values greater than the given value."""
+  dl_gt: Int
+
+  """All values greater than or equal the given value."""
+  dl_gte: Int
+  lb: Int
+
+  """All values that are not equal to given value."""
+  lb_not: Int
+
+  """All values that are contained in given list."""
+  lb_in: [Int!]
+
+  """All values that are not contained in given list."""
+  lb_not_in: [Int!]
+
+  """All values less than the given value."""
+  lb_lt: Int
+
+  """All values less than or equal the given value."""
+  lb_lte: Int
+
+  """All values greater than the given value."""
+  lb_gt: Int
+
+  """All values greater than or equal the given value."""
+  lb_gte: Int
+  s: Int
+
+  """All values that are not equal to given value."""
+  s_not: Int
+
+  """All values that are contained in given list."""
+  s_in: [Int!]
+
+  """All values that are not contained in given list."""
+  s_not_in: [Int!]
+
+  """All values less than the given value."""
+  s_lt: Int
+
+  """All values less than or equal the given value."""
+  s_lte: Int
+
+  """All values greater than the given value."""
+  s_gt: Int
+
+  """All values greater than or equal the given value."""
+  s_gte: Int
+  cb: Int
+
+  """All values that are not equal to given value."""
+  cb_not: Int
+
+  """All values that are contained in given list."""
+  cb_in: [Int!]
+
+  """All values that are not contained in given list."""
+  cb_not_in: [Int!]
+
+  """All values less than the given value."""
+  cb_lt: Int
+
+  """All values less than or equal the given value."""
+  cb_lte: Int
+
+  """All values greater than the given value."""
+  cb_gt: Int
+
+  """All values greater than or equal the given value."""
+  cb_gte: Int
+  Defense: Int
+
+  """All values that are not equal to given value."""
+  Defense_not: Int
+
+  """All values that are contained in given list."""
+  Defense_in: [Int!]
+
+  """All values that are not contained in given list."""
+  Defense_not_in: [Int!]
+
+  """All values less than the given value."""
+  Defense_lt: Int
+
+  """All values less than or equal the given value."""
+  Defense_lte: Int
+
+  """All values greater than the given value."""
+  Defense_gt: Int
+
+  """All values greater than or equal the given value."""
+  Defense_gte: Int
+  year: Int
+
+  """All values that are not equal to given value."""
+  year_not: Int
+
+  """All values that are contained in given list."""
+  year_in: [Int!]
+
+  """All values that are not contained in given list."""
+  year_not_in: [Int!]
+
+  """All values less than the given value."""
+  year_lt: Int
+
+  """All values less than or equal the given value."""
+  year_lte: Int
+
+  """All values greater than the given value."""
+  year_gt: Int
+
+  """All values greater than or equal the given value."""
+  year_gte: Int
+  team: TeamWhereInput
+}
+
+input YearlyPositionalSpendingWhereUniqueInput {
+  id: ID
+}
+
+type YearlyTeamMetrics implements Node {
+  id: ID!
+  team: Team!
+  off_dvoa: Int!
+  def_dvoa: Int!
+  wins: Int!
+  loses: Int!
+  ties: Int!
+  year: Int!
+}
+
+"""A connection to a list of items."""
+type YearlyTeamMetricsConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [YearlyTeamMetricsEdge]!
+  aggregate: AggregateYearlyTeamMetrics!
+}
+
+input YearlyTeamMetricsCreateInput {
+  id: ID
+  off_dvoa: Int!
+  def_dvoa: Int!
+  wins: Int!
+  loses: Int!
+  ties: Int!
+  year: Int!
+  team: TeamCreateOneInput!
+}
+
+input YearlyTeamMetricsCreateManyInput {
+  create: [YearlyTeamMetricsCreateInput!]
+  connect: [YearlyTeamMetricsWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type YearlyTeamMetricsEdge {
+  """The item at the end of the edge."""
+  node: YearlyTeamMetrics!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum YearlyTeamMetricsOrderByInput {
+  id_ASC
+  id_DESC
+  off_dvoa_ASC
+  off_dvoa_DESC
+  def_dvoa_ASC
+  def_dvoa_DESC
+  wins_ASC
+  wins_DESC
+  loses_ASC
+  loses_DESC
+  ties_ASC
+  ties_DESC
+  year_ASC
+  year_DESC
+}
+
+type YearlyTeamMetricsPreviousValues {
+  id: ID!
+  off_dvoa: Int!
+  def_dvoa: Int!
+  wins: Int!
+  loses: Int!
+  ties: Int!
+  year: Int!
+}
+
+input YearlyTeamMetricsScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [YearlyTeamMetricsScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [YearlyTeamMetricsScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [YearlyTeamMetricsScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  off_dvoa: Int
+
+  """All values that are not equal to given value."""
+  off_dvoa_not: Int
+
+  """All values that are contained in given list."""
+  off_dvoa_in: [Int!]
+
+  """All values that are not contained in given list."""
+  off_dvoa_not_in: [Int!]
+
+  """All values less than the given value."""
+  off_dvoa_lt: Int
+
+  """All values less than or equal the given value."""
+  off_dvoa_lte: Int
+
+  """All values greater than the given value."""
+  off_dvoa_gt: Int
+
+  """All values greater than or equal the given value."""
+  off_dvoa_gte: Int
+  def_dvoa: Int
+
+  """All values that are not equal to given value."""
+  def_dvoa_not: Int
+
+  """All values that are contained in given list."""
+  def_dvoa_in: [Int!]
+
+  """All values that are not contained in given list."""
+  def_dvoa_not_in: [Int!]
+
+  """All values less than the given value."""
+  def_dvoa_lt: Int
+
+  """All values less than or equal the given value."""
+  def_dvoa_lte: Int
+
+  """All values greater than the given value."""
+  def_dvoa_gt: Int
+
+  """All values greater than or equal the given value."""
+  def_dvoa_gte: Int
+  wins: Int
+
+  """All values that are not equal to given value."""
+  wins_not: Int
+
+  """All values that are contained in given list."""
+  wins_in: [Int!]
+
+  """All values that are not contained in given list."""
+  wins_not_in: [Int!]
+
+  """All values less than the given value."""
+  wins_lt: Int
+
+  """All values less than or equal the given value."""
+  wins_lte: Int
+
+  """All values greater than the given value."""
+  wins_gt: Int
+
+  """All values greater than or equal the given value."""
+  wins_gte: Int
+  loses: Int
+
+  """All values that are not equal to given value."""
+  loses_not: Int
+
+  """All values that are contained in given list."""
+  loses_in: [Int!]
+
+  """All values that are not contained in given list."""
+  loses_not_in: [Int!]
+
+  """All values less than the given value."""
+  loses_lt: Int
+
+  """All values less than or equal the given value."""
+  loses_lte: Int
+
+  """All values greater than the given value."""
+  loses_gt: Int
+
+  """All values greater than or equal the given value."""
+  loses_gte: Int
+  ties: Int
+
+  """All values that are not equal to given value."""
+  ties_not: Int
+
+  """All values that are contained in given list."""
+  ties_in: [Int!]
+
+  """All values that are not contained in given list."""
+  ties_not_in: [Int!]
+
+  """All values less than the given value."""
+  ties_lt: Int
+
+  """All values less than or equal the given value."""
+  ties_lte: Int
+
+  """All values greater than the given value."""
+  ties_gt: Int
+
+  """All values greater than or equal the given value."""
+  ties_gte: Int
+  year: Int
+
+  """All values that are not equal to given value."""
+  year_not: Int
+
+  """All values that are contained in given list."""
+  year_in: [Int!]
+
+  """All values that are not contained in given list."""
+  year_not_in: [Int!]
+
+  """All values less than the given value."""
+  year_lt: Int
+
+  """All values less than or equal the given value."""
+  year_lte: Int
+
+  """All values greater than the given value."""
+  year_gt: Int
+
+  """All values greater than or equal the given value."""
+  year_gte: Int
+}
+
+type YearlyTeamMetricsSubscriptionPayload {
+  mutation: MutationType!
+  node: YearlyTeamMetrics
+  updatedFields: [String!]
+  previousValues: YearlyTeamMetricsPreviousValues
+}
+
+input YearlyTeamMetricsSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [YearlyTeamMetricsSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [YearlyTeamMetricsSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [YearlyTeamMetricsSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: YearlyTeamMetricsWhereInput
+}
+
+input YearlyTeamMetricsUpdateDataInput {
+  off_dvoa: Int
+  def_dvoa: Int
+  wins: Int
+  loses: Int
+  ties: Int
+  year: Int
+  team: TeamUpdateOneRequiredInput
+}
+
+input YearlyTeamMetricsUpdateInput {
+  off_dvoa: Int
+  def_dvoa: Int
+  wins: Int
+  loses: Int
+  ties: Int
+  year: Int
+  team: TeamUpdateOneRequiredInput
+}
+
+input YearlyTeamMetricsUpdateManyDataInput {
+  off_dvoa: Int
+  def_dvoa: Int
+  wins: Int
+  loses: Int
+  ties: Int
+  year: Int
+}
+
+input YearlyTeamMetricsUpdateManyInput {
+  create: [YearlyTeamMetricsCreateInput!]
+  connect: [YearlyTeamMetricsWhereUniqueInput!]
+  set: [YearlyTeamMetricsWhereUniqueInput!]
+  disconnect: [YearlyTeamMetricsWhereUniqueInput!]
+  delete: [YearlyTeamMetricsWhereUniqueInput!]
+  update: [YearlyTeamMetricsUpdateWithWhereUniqueNestedInput!]
+  updateMany: [YearlyTeamMetricsUpdateManyWithWhereNestedInput!]
+  deleteMany: [YearlyTeamMetricsScalarWhereInput!]
+  upsert: [YearlyTeamMetricsUpsertWithWhereUniqueNestedInput!]
+}
+
+input YearlyTeamMetricsUpdateManyMutationInput {
+  off_dvoa: Int
+  def_dvoa: Int
+  wins: Int
+  loses: Int
+  ties: Int
+  year: Int
+}
+
+input YearlyTeamMetricsUpdateManyWithWhereNestedInput {
+  where: YearlyTeamMetricsScalarWhereInput!
+  data: YearlyTeamMetricsUpdateManyDataInput!
+}
+
+input YearlyTeamMetricsUpdateWithWhereUniqueNestedInput {
+  where: YearlyTeamMetricsWhereUniqueInput!
+  data: YearlyTeamMetricsUpdateDataInput!
+}
+
+input YearlyTeamMetricsUpsertWithWhereUniqueNestedInput {
+  where: YearlyTeamMetricsWhereUniqueInput!
+  update: YearlyTeamMetricsUpdateDataInput!
+  create: YearlyTeamMetricsCreateInput!
+}
+
+input YearlyTeamMetricsWhereInput {
+  """Logical AND on all given filters."""
+  AND: [YearlyTeamMetricsWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [YearlyTeamMetricsWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [YearlyTeamMetricsWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  off_dvoa: Int
+
+  """All values that are not equal to given value."""
+  off_dvoa_not: Int
+
+  """All values that are contained in given list."""
+  off_dvoa_in: [Int!]
+
+  """All values that are not contained in given list."""
+  off_dvoa_not_in: [Int!]
+
+  """All values less than the given value."""
+  off_dvoa_lt: Int
+
+  """All values less than or equal the given value."""
+  off_dvoa_lte: Int
+
+  """All values greater than the given value."""
+  off_dvoa_gt: Int
+
+  """All values greater than or equal the given value."""
+  off_dvoa_gte: Int
+  def_dvoa: Int
+
+  """All values that are not equal to given value."""
+  def_dvoa_not: Int
+
+  """All values that are contained in given list."""
+  def_dvoa_in: [Int!]
+
+  """All values that are not contained in given list."""
+  def_dvoa_not_in: [Int!]
+
+  """All values less than the given value."""
+  def_dvoa_lt: Int
+
+  """All values less than or equal the given value."""
+  def_dvoa_lte: Int
+
+  """All values greater than the given value."""
+  def_dvoa_gt: Int
+
+  """All values greater than or equal the given value."""
+  def_dvoa_gte: Int
+  wins: Int
+
+  """All values that are not equal to given value."""
+  wins_not: Int
+
+  """All values that are contained in given list."""
+  wins_in: [Int!]
+
+  """All values that are not contained in given list."""
+  wins_not_in: [Int!]
+
+  """All values less than the given value."""
+  wins_lt: Int
+
+  """All values less than or equal the given value."""
+  wins_lte: Int
+
+  """All values greater than the given value."""
+  wins_gt: Int
+
+  """All values greater than or equal the given value."""
+  wins_gte: Int
+  loses: Int
+
+  """All values that are not equal to given value."""
+  loses_not: Int
+
+  """All values that are contained in given list."""
+  loses_in: [Int!]
+
+  """All values that are not contained in given list."""
+  loses_not_in: [Int!]
+
+  """All values less than the given value."""
+  loses_lt: Int
+
+  """All values less than or equal the given value."""
+  loses_lte: Int
+
+  """All values greater than the given value."""
+  loses_gt: Int
+
+  """All values greater than or equal the given value."""
+  loses_gte: Int
+  ties: Int
+
+  """All values that are not equal to given value."""
+  ties_not: Int
+
+  """All values that are contained in given list."""
+  ties_in: [Int!]
+
+  """All values that are not contained in given list."""
+  ties_not_in: [Int!]
+
+  """All values less than the given value."""
+  ties_lt: Int
+
+  """All values less than or equal the given value."""
+  ties_lte: Int
+
+  """All values greater than the given value."""
+  ties_gt: Int
+
+  """All values greater than or equal the given value."""
+  ties_gte: Int
+  year: Int
+
+  """All values that are not equal to given value."""
+  year_not: Int
+
+  """All values that are contained in given list."""
+  year_in: [Int!]
+
+  """All values that are not contained in given list."""
+  year_not_in: [Int!]
+
+  """All values less than the given value."""
+  year_lt: Int
+
+  """All values less than or equal the given value."""
+  year_lte: Int
+
+  """All values greater than the given value."""
+  year_gt: Int
+
+  """All values greater than or equal the given value."""
+  year_gte: Int
+  team: TeamWhereInput
+}
+
+input YearlyTeamMetricsWhereUniqueInput {
+  id: ID
+}
