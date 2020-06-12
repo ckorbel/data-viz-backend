@@ -1,6 +1,8 @@
 const Query = {
   async teams(parent, args, { prisma }, info) {
-    const opArgs = {};
+    const opArgs = {
+      orderBy: args.orderBy,
+    };
     if (args.query) {
       opArgs.where = {
         OR: [
@@ -34,7 +36,7 @@ const Query = {
         throw new Error("Team not found");
       }
 
-      return spendObj;
+      return teams[0];
     } catch (err) {
       throw new Error("Team not found");
     }
